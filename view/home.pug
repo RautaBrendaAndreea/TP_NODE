@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+    h1 Ajouter un utilisateur
+    form(action='/add-student', method='POST', class="form-users")
+        label(for='name') Nom
+        input(type='text', name='name', required)
+        label(for='birth') Date de naissance
+        input(type='date', name='birth', required)
+        button(type='submit') Ajouter

@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+    h1 Liste des utilisateurs
+    ul
+        each student in students
+            li
+                | #{student.name} - #{student.birth}
+                form(action='/delete-student', method='POST', class='delete-form', style='display:inline')
+                    input(type='hidden', name='name', value=student.name)
+                    button(type='submit', class='delete-button') X
