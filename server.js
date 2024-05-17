@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const dayjs = require('dayjs');
-const { getStudents, addStudent, deleteStudent } = require('./utils/index');
-const { validateStudent } = require('./utils/validation');
+const { getStudents, addStudent, deleteStudent } = require('./src/utils');
+const { validateStudent } = require('./src/validation');
 
 dotenv.config();
 
@@ -21,39 +21,40 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Page to display the list of users
-app.get('/users', (req, res) => {
+// Display the list of users
+app.get('/users', async (req, res) => {
     try {
-        const students = getStudents().map(student => {
-            return {
-                name: student.name,
-                birth: dayjs(student.birth).format('DD/MM/YYYY')
-            };
-        });
+        const students = (await getStudents()).map(student => ({
+            name: student.name,
+            birth: dayjs(student.birth).format('DD/MM/YYYY')
+        }));
         res.render('users', { students });
     } catch (error) {
+        console.error("Error fetching users:", error);
         res.status(500).send("Error fetching users");
     }
 });
 
 // Add a user
-app.post('/add-student', validateStudent, (req, res) => {
+app.post('/add-student', validateStudent, async (req, res) => {
     const { name, birth } = req.body;
     try {
-        addStudent({ name, birth });
+        await addStudent({ name, birth });
         res.redirect('/users');
     } catch (error) {
+        console.error("Error adding user:", error);
         res.status(500).send("Error adding user");
     }
 });
 
 // Delete a user
-app.post('/delete-student', (req, res) => {
+app.post('/delete-student', async (req, res) => {
     const { name } = req.body;
     try {
-        deleteStudent(name);
+        await deleteStudent(name);
         res.redirect('/users');
     } catch (error) {
+        console.error("Error deleting user:", error);
         res.status(500).send("Error deleting user");
     }
 });

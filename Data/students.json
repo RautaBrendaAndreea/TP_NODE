@@ -1,9 +1,5 @@
 [
   {
-    "name": "Sonia",
-    "birth": "2019-05-14"
-  },
-  {
     "name": "Antoine",
     "birth": "2000-05-12"
   },
@@ -18,5 +14,13 @@
   {
     "name": "Alex",
     "birth": "2024-05-21"
+  },
+  {
+    "name": "Jean",
+    "birth": "2024-05-14"
+  },
+  {
+    "name": "Olivia",
+    "birth": "2024-05-13"
   }
 ]
