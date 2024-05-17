@@ -35,7 +35,7 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// Add a user
+// Add a user with error handling
 app.post('/add-student', validateStudent, async (req, res) => {
     const { name, birth } = req.body;
     try {
@@ -43,7 +43,7 @@ app.post('/add-student', validateStudent, async (req, res) => {
         res.redirect('/users');
     } catch (error) {
         console.error("Error adding user:", error);
-        res.status(500).send("Error adding user");
+        res.render('home', { error: "Error adding user" });
     }
 });
 

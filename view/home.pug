@@ -2,6 +2,8 @@ extends layout.pug
 
 block content
     h1 Ajouter un utilisateur
+    if error
+        p(style='color:red')= error
     form(action='/add-student', method='POST', class="form-users")
         label(for='name') Nom
         input(type='text', name='name', required)
